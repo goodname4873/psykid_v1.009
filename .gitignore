@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment
+server/.env
+.env.local
+
+# Database (included: test data for review)
+# server/data/*.db
+# server/data/*.db-shm
+# server/data/*.db-wal
+
+# Uploads (included: test voice recordings for review)
+# server/uploads/audio/*
+# !server/uploads/audio/.gitkeep
+
+# Logs
+*.log
+server/server.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
