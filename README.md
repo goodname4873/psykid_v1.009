@@ -36,8 +36,8 @@ npm run build
 cd server
 npm start
 
-# ④ 浏览器打开
-# http://localhost:3000
+# ④ 浏览器打开（推荐 HTTPS，语音模式必需）
+# https://localhost:3001
 ```
 
 完成。后端首次启动会自动建库、跑 migration、种入测试账号。
@@ -73,8 +73,8 @@ npm start
 ```
 ==================================================
   Psychology Counseling Platform Server
-  HTTP:       http://localhost:3000
-  WebSocket:  ws://localhost:3000
+  HTTP:       localhost:3000            (仅本机纯文本调试，不用于语音演示)
+  HTTPS/WSS:  https://localhost:3001    (评审演示与语音模式推荐)
   Voice Pipeline: /ws/voice-pipeline (on main server)
   Guardian Service: started (event-driven + 30s silence monitor)
   Scheduler:       started (60s interval)
@@ -90,18 +90,20 @@ npm start
 npm install
 npm run build       # 输出到 dist/
 # 后端启动后会自动从 dist/ 静态托管前端
-# 浏览器访问 http://localhost:3000
+# 浏览器访问 https://localhost:3001
 ```
 
 **方式 B：开发模式（前端热更新，做开发用）**
 
 ```bash
 npm install
-npm run dev          # 启动 vite dev server，端口 5173
-# 浏览器访问 http://localhost:5173
+npm run dev          # 启动 vite dev server，端口 5173，仅用于开发调试
+# 评审演示和语音体验仍建议访问 https://localhost:3001
 ```
 
-⚠️ **重要**：直接访问 `http://localhost:3000` 但出现 "Internal server error" / "ENOENT no such file index.html"——说明前端没构建。执行 `npm run build` 即可解决。
+⚠️ **重要**：访问 `https://localhost:3001` 但出现 "Internal server error" / "ENOENT no such file index.html"——说明前端没构建。执行 `npm run build` 即可解决。
+
+⚠️ **语音访问提醒**：评审演示、语音咨询和移动端访问请统一使用 `https://localhost:3001`。普通 HTTP 地址可能导致浏览器限制麦克风权限。
 
 ---
 
@@ -122,8 +124,8 @@ npm run dev          # 启动 vite dev server，端口 5173
 > **隐私说明**：公开仓库仅保留通用演示账号和开发测试账号。真实学生测试账号、真实学生姓名和真实对话数据不应写入公开 README。
 
 登录入口：
-- 学生端：访问 `/` 或 `/login`
-- 教师端：访问 `/teacher/login`
+- 学生端：访问 `https://localhost:3001/` 或 `https://localhost:3001/login`
+- 教师端：访问 `https://localhost:3001/teacher/login`
 
 ---
 
@@ -248,7 +250,7 @@ npm run dev          # 启动 vite dev server，端口 5173
 
 ### 5.1 文本咨询（最基础）
 
-1. 学生端 `S20240001` 登录 → 进入"聊天"页面
+1. 学生端访问 `https://localhost:3001`，用 `S20240001` 登录 → 进入"聊天"页面
 2. 发送一条文本消息（如"我最近很焦虑"）
 3. 教师端 `T001` 登录 → 进入会话列表 → 点击该学生
 4. 教师面板右侧应出现 AI 草稿建议
@@ -268,7 +270,7 @@ npm run dev          # 启动 vite dev server，端口 5173
 
 ### 5.4 语音模式
 
-1. 学生端进入"语音"页面 → 选 Agent 模式
+1. 学生端通过 `https://localhost:3001` 进入"语音"页面 → 选 Agent 模式
 2. 允许麦克风权限，开始说话
 3. AI 会用语音回复（4-5 秒响应）
 4. 教师端"Guardian 守护进程"面板应实时刷新态势分析
@@ -303,7 +305,7 @@ npm run dev          # 启动 vite dev server，端口 5173
 
 ### Q4: 语音模式麦克风没反应
 
-- 必须用 HTTPS 或 localhost（浏览器安全限制）
+- 评审演示和语音体验请统一使用 `https://localhost:3001`，不要用普通 HTTP 地址进入语音页面
 - 移动端需要自签证书 → 启动时会输出 `HTTPS: https://localhost:3001`
 - 检查浏览器权限设置
 
